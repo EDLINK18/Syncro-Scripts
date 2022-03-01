@@ -1,6 +1,20 @@
-### There are multiple places in this file that company name has been replaced with XXXXX (5 Xs). This should make it easier to find and replace with your custom info.
+### All parameters that need to be updates to make script work are in the parameters section at the top of the script. XXXXX are placeholders for what needs to be changed.
 ### These functions, options, etc have been put together from multiple sources. Please feel free to optomize and submit changes back if there is a better way.
+### Note: Background image should be 375x67
 ### Thanks, EDLINK18 - Region 18 Education Service Center Technology Consortium
+#-------------------------------------------------------
+#Script parameters to edit
+#-------------------------------------------------------
+$TempFolder = "c:\temp\XXXXX"
+$Favicon = "c:\temp\XXXXX\XXXXX.ico"
+$FaviconURL = "https://www.XXXXX.net/imgs/favicon.ico"
+$Background = "c:\temp\XXXXX\XXXXX_Background.jpg"
+$BackgroundURL = "https://www.XXXXX.net/imgs/XXXXX_background.jpg"
+$CompanyName = "XXXXX"
+$CheckDays = "30"
+#-------------------------------------------------------
+#Should not have to edit anything below this line.
+#-------------------------------------------------------
 
 function Test-RebootRequired 
 {
@@ -50,27 +64,25 @@ function Test-RebootRequired
 if(Test-RebootRequired)
 {
 #Check that folder exists, if not create folder
-$XXXXXFolder = "c:\temp\XXXXX"
-if (Test-Path $XXXXXFolder) {
+if (Test-Path $TempFolder) {
 }
 else
 {
-    New-Item $XXXXXFolder -ItemType Directory
+    New-Item $TempFolder -ItemType Directory
 }
 #Download ICO file for application window
-$XXXXXFavicon = "c:\temp\XXXXX\XXXXX.ico"
-if (Test-Path $XXXXXFavicon) {
+if (Test-Path $Favicon) {
 }
 else
 {
-Invoke-WebRequest -Uri "https://www.XXXXX.net/imgs/XXXXXfavicon.ico" -OutFile "c:\temp\XXXXX\XXXXX.ico"
+Invoke-WebRequest -Uri "$FaviconURL" -OutFile "$Favicon"
 }
-$XXXXXBackground = "c:\temp\XXXXX\XXXXX_Background.jpg"
-if (Test-Path $XXXXXBackground) {
+#Download background image for application window
+if (Test-Path $Background) {
 }
 else
 {
-Invoke-WebRequest -Uri "https://www.XXXXX.net/imgs/XXXXX_background.jpg" -OutFile "c:\temp\XXXXX\XXXXX_Background.jpg"
+Invoke-WebRequest -Uri "$BackgroundURL" -OutFile "$Background"
 }
 
 #---------------------------------------------- 
@@ -270,11 +282,11 @@ function Call-MainForm_psf
     $MainForm.MinimizeBox = $False 
     $MainForm.Name = 'MainForm' 
     $MainForm.ShowIcon = $True 
-    $objIcon = New-Object system.drawing.icon ("c:\temp\XXXXX\XXXXX.ico")
+    $objIcon = New-Object system.drawing.icon ("$Favicon")
     $MainForm.Icon = $objIcon
     $MainForm.ShowInTaskbar = $False 
     $MainForm.StartPosition = 'CenterScreen' 
-    $MainForm.Text = 'XXXXX Support Services' 
+    $MainForm.Text = "$CompanyName Support Services" 
     $MainForm.TopMost = $True 
     $MainForm.add_Load($MainForm_Load) 
     # 
@@ -326,7 +338,7 @@ function Call-MainForm_psf
     # 
     # panel1 
     # 
-    $objImage = [system.drawing.image]::FromFile("c:\temp\XXXXX\XXXXX_background.jpg")
+    $objImage = [system.drawing.image]::FromFile("$Background")
     $panel1.Controls.Add($labelITSystemsMaintenance) 
     $panel1.BackColor = '0, 114, 198' 
     $panel1.Location = '0, 0' 
